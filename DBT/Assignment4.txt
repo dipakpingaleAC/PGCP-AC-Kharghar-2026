@@ -1,0 +1,472 @@
+mysql> use assignment4;
+Database changed
+mysql> show tables;
++-----------------------+
+| Tables_in_assignment4 |
++-----------------------+
+| dept                  |
+| emp                   |
++-----------------------+
+2 rows in set (0.01 sec)
+
+mysql> select* from dept;
+Empty set (0.00 sec)
+
+mysql> select* from emp;
+Empty set (0.00 sec)
+
+mysql> insert into assignment4.emp
+    -> select *from assignment2.emp;
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into assignment4.dept
+    -> select *from assignment2.department;
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select* from dept;
++--------+----------------+
+| DeptID | departmentname |
++--------+----------------+
+|     10 | IT             |
+|     20 | HR             |
+|     30 | Sales          |
+|     40 | Finance        |
+|     50 | Non_It         |
++--------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select* from emp;
++-------+---------+----------+--------+-------------+-------+--------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City   |
++-------+---------+----------+--------+-------------+-------+--------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   |
++-------+---------+----------+--------+-------------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from emp
+    -> cross join dept;
++-------+---------+----------+--------+-------------+-------+--------+--------+----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City   | DeptID | departmentname |
++-------+---------+----------+--------+-------------+-------+--------+--------+----------------+
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   |     10 | IT             |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   |     10 | IT             |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai |     10 | IT             |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   |     10 | IT             |
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   |     10 | IT             |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   |     20 | HR             |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   |     20 | HR             |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai |     20 | HR             |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   |     20 | HR             |
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   |     20 | HR             |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   |     30 | Sales          |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   |     30 | Sales          |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai |     30 | Sales          |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   |     30 | Sales          |
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   |     30 | Sales          |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   |     40 | Finance        |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   |     40 | Finance        |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai |     40 | Finance        |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   |     40 | Finance        |
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   |     40 | Finance        |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   |     50 | Non_It         |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   |     50 | Non_It         |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai |     50 | Non_It         |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   |     50 | Non_It         |
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   |     50 | Non_It         |
++-------+---------+----------+--------+-------------+-------+--------+--------+----------------+
+25 rows in set (0.01 sec)
+
+
+mysql> select emp.empname, dept.departmentname
+    -> from emp
+    -> inner join dept
+    -> on emp.deptid = dept.deptid;
++---------+----------------+
+| empname | departmentname |
++---------+----------------+
+| Kiran   | IT             |
+| Pooja   | HR             |
+| Vikas   | Sales          |
+| Anita   | IT             |
+| Suresh  | Finance        |
++---------+----------------+
+5 rows in set (0.00 sec)
+
+
+ERROR 1051 (42S02): Unknown table 'emp'
+mysql> select emp.* , dept.departmentname
+    -> from emp
+    -> left join dept
+    -> on emp.deptid, dept.deptid;
+ERROR 1049 (42000): Unknown database 'dept'
+mysql> show tables;
++-----------------------+
+| Tables_in_assignment4 |
++-----------------------+
+| dept                  |
+| emp                   |
++-----------------------+
+2 rows in set (0.00 sec)
+
+mysql> select emp.* , dept.departmentname
+    -> from emp
+    -> left join dept
+    -> on emp.deptid= dept.deptid;
++-------+---------+----------+--------+-------------+-------+--------+----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City   | departmentname |
++-------+---------+----------+--------+-------------+-------+--------+----------------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   | IT             |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   | HR             |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai | Sales          |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   | IT             |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   | Finance        |
++-------+---------+----------+--------+-------------+-------+--------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select emp.* , dept.departmentname
+    -> from emp
+    -> left join emp
+    -> on emp.deptid= dept.deptid;
+ERROR 1066 (42000): Not unique table/alias: 'emp'
+mysql> select emp.* , dept.departmentname
+    -> from emp
+    -> left join dept
+    -> on emp.deptid= dept.deptid;
++-------+---------+----------+--------+-------------+-------+--------+----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City   | departmentname |
++-------+---------+----------+--------+-------------+-------+--------+----------------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   | IT             |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   | HR             |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai | Sales          |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   | IT             |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   | Finance        |
++-------+---------+----------+--------+-------------+-------+--------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> select emp.* , dept.departmentname
+    -> from dept
+    -> left join dept
+    -> on emp.deptid= dept.deptid;
+ERROR 1066 (42000): Not unique table/alias: 'dept'
+mysql> select emp.* , dept.departmentname
+    -> from dept
+    -> left join emp
+    -> on emp.deptid= dept.deptid;
++-------+---------+----------+--------+-------------+-------+--------+----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City   | departmentname |
++-------+---------+----------+--------+-------------+-------+--------+----------------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   | IT             |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   | IT             |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   | HR             |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai | Sales          |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   | Finance        |
+|  NULL | NULL    |     NULL |   NULL | NULL        | NULL  | NULL   | Non_It         |
++-------+---------+----------+--------+-------------+-------+--------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from
+    -> dept
+    -> right join dept
+    -> on emp.deptid = dept.deptid;
+ERROR 1066 (42000): Not unique table/alias: 'dept'
+mysql> select * from
+    -> dept
+    -> right join emp
+    -> on emp.deptid = dept.deptid;
++--------+----------------+-------+---------+----------+--------+-------------+-------+--------+
+| DeptID | departmentname | EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City   |
++--------+----------------+-------+---------+----------+--------+-------------+-------+--------+
+|     10 | IT             |   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   |
+|     20 | HR             |   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   |
+|     30 | Sales          |   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai |
+|     10 | IT             |   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   |
+|     40 | Finance        |   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   |
++--------+----------------+-------+---------+----------+--------+-------------+-------+--------+
+5 rows in set (0.01 sec)
+
+mysql> select emp.empid , emp.empname , dept.deptid , dept.departmentname
+    -> from emp
+    -> right join dept
+    -> on emp.deptid = dept.deptid;
++-------+---------+--------+----------------+
+| empid | empname | deptid | departmentname |
++-------+---------+--------+----------------+
+|   107 | Kiran   |     10 | IT             |
+|   110 | Anita   |     10 | IT             |
+|   108 | Pooja   |     20 | HR             |
+|   109 | Vikas   |     30 | Sales          |
+|   111 | Suresh  |     40 | Finance        |
+|  NULL | NULL    |     50 | Non_It         |
++-------+---------+--------+----------------+
+6 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> select *from emp
+    -> natural join dept;
++--------+-------+---------+----------+-------------+-------+--------+----------------+
+| DeptID | EmpID | EmpName | Salary   | JoiningDate | email | City   | departmentname |
++--------+-------+---------+----------+-------------+-------+--------+----------------+
+|     10 |   107 | Kiran   | 57200.00 | 2024-06-01  | NULL  | NULL   | IT             |
+|     20 |   108 | Pooja   | 48000.00 | 2023-09-15  | NULL  | NULL   | HR             |
+|     30 |   109 | Vikas   | 62000.00 | 2022-12-10  | NULL  | Mumbai | Sales          |
+|     10 |   110 | Anita   | 63800.00 | 2024-07-20  | NULL  | NULL   | IT             |
+|     40 |   111 | Suresh  | 42000.00 | 2025-01-05  | NULL  | NULL   | Finance        |
++--------+-------+---------+----------+-------------+-------+--------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE EmpBackup LIKE emp;
+Query OK, 0 rows affected (0.06 sec)
+
+
+mysql> insert into empbackup
+    -> select *from emp;
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select *from empbackup
+    -> ;
++-------+---------+----------+--------+-------------+-------+--------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City   |
++-------+---------+----------+--------+-------------+-------+--------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   |
++-------+---------+----------+--------+-------------+-------+--------+
+5 rows in set (0.00 sec)
+
+
+
+mysql> create table emp2(
+    -> empid int auto_increment primary key,
+    -> empname varchar(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>
+mysql> desc emp2;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| empid   | int         | NO   | PRI | NULL    | auto_increment |
+| empname | varchar(50) | YES  |     | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+2 rows in set (0.01 sec)
+
+mysql> select *from emp
+    -> where salary < (
+    -> select avg(salary) from emp);
++-------+---------+----------+--------+-------------+-------+------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City |
++-------+---------+----------+--------+-------------+-------+------+
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL |
++-------+---------+----------+--------+-------------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> select *from emp
+    -> where salary > (
+    -> select avg(salary) from emp);
++-------+---------+----------+--------+-------------+-------+--------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City   |
++-------+---------+----------+--------+-------------+-------+--------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   |
++-------+---------+----------+--------+-------------+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> select * from emp;
++-------+---------+----------+--------+-------------+-------+--------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City   |
++-------+---------+----------+--------+-------------+-------+--------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   |
++-------+---------+----------+--------+-------------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select empname
+    -> from emp
+    -> where empname = (
+    -> select empname from emp
+    -> where empname='kiran');
++---------+
+| empname |
++---------+
+| Kiran   |
++---------+
+1 row in set (0.00 sec)
+
+
+mysql> select empname, city
+    -> from emp
+    -> where city = (
+    -> select city from emp
+    -> where city='Mumbai');
++---------+--------+
+| empname | city   |
++---------+--------+
+| Vikas   | Mumbai |
++---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select *from emp
+    -> where city in (
+    -> select deptid
+    -> from dept
+    -> where departmentname= 'it');
+Empty set, 1 warning (0.02 sec)
+
+
+mysql> SELECT *
+    -> FROM emp
+    -> WHERE DeptID IN (
+    ->     SELECT DeptID
+    ->     FROM dept
+    ->     WHERE Location = 'Mumbai'
+    -> );
+ERROR 1054 (42S22): Unknown column 'Location' in 'where clause'
+mysql>
+mysql> select *from dept;
++--------+----------------+
+| DeptID | departmentname |
++--------+----------------+
+|     10 | IT             |
+|     20 | HR             |
+|     30 | Sales          |
+|     40 | Finance        |
+|     50 | Non_It         |
++--------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM emp
+    -> WHERE DeptID IN (
+    ->     SELECT DeptID
+    ->     FROM dept
+    ->     WHERE Location = 'Mumbai');
+ERROR 1054 (42S22): Unknown column 'Location' in 'where clause'
+mysql> SELECT *
+    -> FROM emp
+    -> WHERE DeptID IN (
+    ->     SELECT DeptID
+    ->     FROM dept
+    ->     where deptid = 10);
++-------+---------+----------+--------+-------------+-------+------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City |
++-------+---------+----------+--------+-------------+-------+------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL |
++-------+---------+----------+--------+-------------+-------+------+
+2 rows in set (0.00 sec)
+
+6
+mysql> SELECT *
+    -> FROM emp
+    -> WHERE DeptID IN (
+    ->     SELECT DeptID
+    ->     FROM dept
+    ->     WHERE departmentname ='it');
++-------+---------+----------+--------+-------------+-------+------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City |
++-------+---------+----------+--------+-------------+-------+------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL |
++-------+---------+----------+--------+-------------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> select deptid
+    -> from emp
+    -> where 1 < (select deptid from emp
+    -> group by deptid
+    -> having count(*));
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql>
+mysql>
+mysql>
+mysql> select *from emp
+    -> where deptid in(
+    -> select deptid
+    -> from emp
+    -> group by deptid
+    -> having count(*) > 1
+    -> );
++-------+---------+----------+--------+-------------+-------+------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City |
++-------+---------+----------+--------+-------------+-------+------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL |
++-------+---------+----------+--------+-------------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp
+    -> where empid in (
+    -> select * from emp
+    -> having max(salary));
+ERROR 1241 (21000): Operand should contain 1 column(s)
+mysql>
+mysql>
+mysql>
+mysql> select *from emp
+    -> where salary in (
+    -> select max(salary) from emp);
++-------+---------+----------+--------+-------------+-------+------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City |
++-------+---------+----------+--------+-------------+-------+------+
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL |
++-------+---------+----------+--------+-------------+-------+------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+
+
+mysql> SELECT
+    ->     E1.EmpName AS Employee1,
+    ->     E2.EmpName AS Employee2,
+    ->     E1.DeptID
+    -> FROM emp E1
+    -> JOIN emp E2
+    ->     ON E1.DeptID = E2.DeptID
+    -> WHERE E1.EmpID < E2.EmpID;
++-----------+-----------+--------+
+| Employee1 | Employee2 | DeptID |
++-----------+-----------+--------+
+| Kiran     | Anita     |     10 |
++-----------+-----------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT
+    ->     D1.departmentname AS Department1,
+    ->     D2.departmentname AS Department2
+    -> FROM dept D1
+    -> JOIN dept D2
+    ->     ON D1.DeptID < D2.DeptID;
++-------------+-------------+
+| Department1 | Department2 |
++-------------+-------------+
+| IT          | HR          |
+| IT          | Sales       |
+| IT          | Finance     |
+| IT          | Non_It      |
+| HR          | Sales       |
+| HR          | Finance     |
+| HR          | Non_It      |
+| Sales       | Finance     |
+| Sales       | Non_It      |
+| Finance     | Non_It      |
++-------------+-------------+
+10 rows in set (0.00 sec)
