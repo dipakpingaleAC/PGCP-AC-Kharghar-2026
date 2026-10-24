@@ -1,0 +1,615 @@
+icrosoft Windows [Version 10.0.26200.9711]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\DELL>
+C:\Users\DELL>mysql -u root -p
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| assignment1        |
+| assignment2        |
+| collage            |
+| dsp                |
+| information_schema |
+| mysql              |
+| oct13              |
+| performance_schema |
+| stp                |
+| sys                |
+| xyz                |
++--------------------+
+11 rows in set (0.03 sec)
+
+mysql> use assignment2;
+Database changed
+mysql> show tables;
++-----------------------+
+| Tables_in_assignment2 |
++-----------------------+
+| department            |
+| emp                   |
++-----------------------+
+2 rows in set (0.01 sec)
+
+mysql> select *from emp;
++-------+---------+----------+--------+-------------+-----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email           |
++-------+---------+----------+--------+-------------+-----------------+
+|   112 | Akash   | 65000.00 |     10 | 2025-01-02  | Akash@gmail.com |
+|   113 | Abhay   | 60000.00 |     10 | 2025-05-02  | Abhay@gmail.com |
+|   114 | Ak      | 70000.00 |     10 | 2025-01-02  | Ak@gmail.com    |
++-------+---------+----------+--------+-------------+-----------------+
+3 rows in set (0.14 sec)
+
+mysql> select *from department;
++--------+----------+
+| DeptID | DeptName |
++--------+----------+
+|     10 | IT       |
+|     20 | HR       |
+|     30 | Sales    |
+|     40 | Finance  |
++--------+----------+
+4 rows in set (0.00 sec)
+
+
+mysql> insert into department values(
+    -> 50,'Non_It');
+Query OK, 1 row affected (0.02 sec)
+
+mysql>
+mysql> select *from departmwnt;
+ERROR 1146 (42S02): Table 'assignment2.departmwnt' doesn't exist
+mysql> select *from department;
++--------+----------+
+| DeptID | DeptName |
++--------+----------+
+|     10 | IT       |
+|     20 | HR       |
+|     30 | Sales    |
+|     40 | Finance  |
+|     50 | Non_It   |
++--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> start transaction ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> savepoint sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> Update emp
+    -> set DeptId =20
+    -> where empid =101;
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select *from emp;
++-------+---------+----------+--------+-------------+-----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email           |
++-------+---------+----------+--------+-------------+-----------------+
+|   112 | Akash   | 65000.00 |     10 | 2025-01-02  | Akash@gmail.com |
+|   113 | Abhay   | 60000.00 |     10 | 2025-05-02  | Abhay@gmail.com |
+|   114 | Ak      | 70000.00 |     10 | 2025-01-02  | Ak@gmail.com    |
++-------+---------+----------+--------+-------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> savepoint sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> Update emp
+    -> set DeptId =20
+    -> where empid =113;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from emp;\
++-------+---------+----------+--------+-------------+-----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email           |
++-------+---------+----------+--------+-------------+-----------------+
+|   112 | Akash   | 65000.00 |     10 | 2025-01-02  | Akash@gmail.com |
+|   113 | Abhay   | 60000.00 |     20 | 2025-05-02  | Abhay@gmail.com |
+|   114 | Ak      | 70000.00 |     10 | 2025-01-02  | Ak@gmail.com    |
++-------+---------+----------+--------+-------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> select *from department;
++--------+----------+
+| DeptID | DeptName |
++--------+----------+
+|     10 | IT       |
+|     20 | HR       |
+|     30 | Sales    |
+|     40 | Finance  |
+|     50 | Non_It   |
++--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select *from emp;
++-------+---------+----------+--------+-------------+-----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email           |
++-------+---------+----------+--------+-------------+-----------------+
+|   112 | Akash   | 65000.00 |     10 | 2025-01-02  | Akash@gmail.com |
+|   113 | Abhay   | 60000.00 |     20 | 2025-05-02  | Abhay@gmail.com |
+|   114 | Ak      | 70000.00 |     10 | 2025-01-02  | Ak@gmail.com    |
++-------+---------+----------+--------+-------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select *from emp;
++-------+---------+----------+--------+-------------+-----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email           |
++-------+---------+----------+--------+-------------+-----------------+
+|   112 | Akash   | 65000.00 |     10 | 2025-01-02  | Akash@gmail.com |
+|   113 | Abhay   | 60000.00 |     10 | 2025-05-02  | Abhay@gmail.com |
+|   114 | Ak      | 70000.00 |     10 | 2025-01-02  | Ak@gmail.com    |
++-------+---------+----------+--------+-------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> rollback to sp1;
+ERROR 1305 (42000): SAVEPOINT sp1 does not exist
+mysql> savepoint sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> Update emp
+    -> set DeptId =20
+    -> where empid =113;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from emp;
++-------+---------+----------+--------+-------------+-----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email           |
++-------+---------+----------+--------+-------------+-----------------+
+|   112 | Akash   | 65000.00 |     10 | 2025-01-02  | Akash@gmail.com |
+|   113 | Abhay   | 60000.00 |     20 | 2025-05-02  | Abhay@gmail.com |
+|   114 | Ak      | 70000.00 |     10 | 2025-01-02  | Ak@gmail.com    |
++-------+---------+----------+--------+-------------+-----------------+
+3 rows in set (0.00 sec)
+
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select *from emp;
++-------+---------+----------+--------+-------------+-----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email           |
++-------+---------+----------+--------+-------------+-----------------+
+|   112 | Akash   | 65000.00 |     10 | 2025-01-02  | Akash@gmail.com |
+|   113 | Abhay   | 60000.00 |     20 | 2025-05-02  | Abhay@gmail.com |
+|   114 | Ak      | 70000.00 |     10 | 2025-01-02  | Ak@gmail.com    |
++-------+---------+----------+--------+-------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select *from emp;
++-------+---------+----------+--------+-------------+-----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email           |
++-------+---------+----------+--------+-------------+-----------------+
+|   112 | Akash   | 65000.00 |     10 | 2025-01-02  | Akash@gmail.com |
+|   113 | Abhay   | 60000.00 |     20 | 2025-05-02  | Abhay@gmail.com |
+|   114 | Ak      | 70000.00 |     10 | 2025-01-02  | Ak@gmail.com    |
++-------+---------+----------+--------+-------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> SAVEPOINT sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> UPDATE Emp
+    -> SET DeptID = 20
+    -> WHERE EmpID = 101;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select *from emp;
++-------+---------+----------+--------+-------------+-----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email           |
++-------+---------+----------+--------+-------------+-----------------+
+|   112 | Akash   | 65000.00 |     10 | 2025-01-02  | Akash@gmail.com |
+|   113 | Abhay   | 60000.00 |     20 | 2025-05-02  | Abhay@gmail.com |
+|   114 | Ak      | 70000.00 |     10 | 2025-01-02  | Ak@gmail.com    |
++-------+---------+----------+--------+-------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> ROLLBACK TO sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+mysql> COMMIT;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select *from emp;
++-------+---------+----------+--------+-------------+-----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email           |
++-------+---------+----------+--------+-------------+-----------------+
+|   112 | Akash   | 65000.00 |     10 | 2025-01-02  | Akash@gmail.com |
+|   113 | Abhay   | 60000.00 |     20 | 2025-05-02  | Abhay@gmail.com |
+|   114 | Ak      | 70000.00 |     10 | 2025-01-02  | Ak@gmail.com    |
++-------+---------+----------+--------+-------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> START TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SAVEPOINT sp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> UPDATE Emp
+    -> SET DeptID = 30
+    -> WHERE EmpID = 113;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> ROLLBACK TO sp1;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>
+mysql> COMMIT;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select *from emp;
++-------+---------+----------+--------+-------------+-----------------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email           |
++-------+---------+----------+--------+-------------+-----------------+
+|   112 | Akash   | 65000.00 |     10 | 2025-01-02  | Akash@gmail.com |
+|   113 | Abhay   | 60000.00 |     20 | 2025-05-02  | Abhay@gmail.com |
+|   114 | Ak      | 70000.00 |     10 | 2025-01-02  | Ak@gmail.com    |
++-------+---------+----------+--------+-------------+-----------------+
+3 rows in set (0.00 sec)
+
+mysql> TRUNCATE TABLE Emp;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> select *from emp;
+Empty set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Emp
+    -> WHERE Salary > 50000;
+Empty set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select *from emp;
+Empty set (0.00 sec)
+
+mysql> INSERT INTO Emp (EmpID, EmpName, Salary, DeptID, JoiningDate)
+    -> VALUES
+    -> (107, 'Kiran', 52000, 10, '2024-06-01'),
+    -> (108, 'Pooja', 48000, 20, '2023-09-15'),
+    -> (109, 'Vikas', 62000, 30, '2022-12-10'),
+    -> (110, 'Anita', 58000, 10, '2024-07-20'),
+    -> (111, 'Suresh', 42000, 40, '2025-01-05');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select *from emp;
++-------+---------+----------+--------+-------------+-------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email |
++-------+---------+----------+--------+-------------+-------+
+|   107 | Kiran   | 52000.00 |     10 | 2024-06-01  | NULL  |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  |
+|   110 | Anita   | 58000.00 |     10 | 2024-07-20  | NULL  |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  |
++-------+---------+----------+--------+-------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select* from emp
+    -> where salary > 50000;
++-------+---------+----------+--------+-------------+-------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email |
++-------+---------+----------+--------+-------------+-------+
+|   107 | Kiran   | 52000.00 |     10 | 2024-06-01  | NULL  |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  |
+|   110 | Anita   | 58000.00 |     10 | 2024-07-20  | NULL  |
++-------+---------+----------+--------+-------------+-------+
+3 rows in set (0.00 sec)
+
+mysql>
+mysql> Update emp
+    -> set salary =salary+salary
+    -> %10
+    -> where deptid = 10;
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 2  Changed: 0  Warnings: 0
+
+mysql> select *from emp;
++-------+---------+----------+--------+-------------+-------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email |
++-------+---------+----------+--------+-------------+-------+
+|   107 | Kiran   | 52000.00 |     10 | 2024-06-01  | NULL  |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  |
+|   110 | Anita   | 58000.00 |     10 | 2024-07-20  | NULL  |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  |
++-------+---------+----------+--------+-------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> Update emp
+    -> set salary =salary*1.10
+    -> where deptid = 10;
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select *from emp;
++-------+---------+----------+--------+-------------+-------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email |
++-------+---------+----------+--------+-------------+-------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  |
++-------+---------+----------+--------+-------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select count(empid)
+    -> from emp
+    -> group by deptid;
++--------------+
+| count(empid) |
++--------------+
+|            2 |
+|            1 |
+|            1 |
+|            1 |
++--------------+
+4 rows in set (0.01 sec)
+
+mysql> select count(empid),deptid
+    -> from emp
+    -> group by deptid;
++--------------+--------+
+| count(empid) | deptid |
++--------------+--------+
+|            2 |     10 |
+|            1 |     20 |
+|            1 |     30 |
+|            1 |     40 |
++--------------+--------+
+4 rows in set (0.00 sec)
+
+mysql>
+mysql> select *from emp;
++-------+---------+----------+--------+-------------+-------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email |
++-------+---------+----------+--------+-------------+-------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  |
++-------+---------+----------+--------+-------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select *from department ;
++--------+----------+
+| DeptID | DeptName |
++--------+----------+
+|     10 | IT       |
+|     20 | HR       |
+|     30 | Sales    |
+|     40 | Finance  |
+|     50 | Non_It   |
++--------+----------+
+5 rows in set (0.00 sec)
+
+mysql> select d.deptid ,d.deptname
+    -> ,count(e.empid) as emp_count
+    -> from department d
+    -> left join emp e
+    -> on d.deptid =e.deptid
+    -> group by d.deptid, d.deptname;
++--------+----------+-----------+
+| deptid | deptname | emp_count |
++--------+----------+-----------+
+|     10 | IT       |         2 |
+|     20 | HR       |         1 |
+|     30 | Sales    |         1 |
+|     40 | Finance  |         1 |
+|     50 | Non_It   |         0 |
++--------+----------+-----------+
+5 rows in set (0.01 sec)
+
+mysql> select department.deptid , department.depename,
+    -> count(emp.empid) as empcount
+    -> from department
+    -> left join emp
+    -> on department.deptid = emp.deptname
+    -> group by department.deptid, department.deptname;
+ERROR 1054 (42S22): Unknown column 'department.depename' in 'field list'
+mysql> select department.deptid , department.deptname,
+    -> count(emp.empid) as empcount
+    -> from department
+    -> left join emp
+    -> on department.deptid = emp.deptid
+    -> group by department.deptid, department.deptname;
++--------+----------+----------+
+| deptid | deptname | empcount |
++--------+----------+----------+
+|     10 | IT       |        2 |
+|     20 | HR       |        1 |
+|     30 | Sales    |        1 |
+|     40 | Finance  |        1 |
+|     50 | Non_It   |        0 |
++--------+----------+----------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> SELECT d.DeptID, d.DeptName
+    -> FROM Department d
+    -> LEFT JOIN Emp e ON d.DeptID = e.DeptID
+    -> WHERE e.EmpID IS NULL;
++--------+----------+
+| DeptID | DeptName |
++--------+----------+
+|     50 | Non_It   |
++--------+----------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> ALTER TABLE Emp
+    -> ADD City VARCHAR(50);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> select * from emp;
++-------+---------+----------+--------+-------------+-------+------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City |
++-------+---------+----------+--------+-------------+-------+------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | NULL |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL |
++-------+---------+----------+--------+-------------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> update emp
+    -> set City = 'Mumbai'
+    -> where deptId = 30;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp;
++-------+---------+----------+--------+-------------+-------+--------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City   |
++-------+---------+----------+--------+-------------+-------+--------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   |
++-------+---------+----------+--------+-------------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> CREATE VIEW Mumbai_Salespeople AS
+    -> SELECT EmpID, EmpName, Salary, DeptID, City
+    -> FROM Emp
+    -> WHERE DeptID = 30
+    -> AND City = 'Mumbai';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SELECT * FROM Mumbai_Salespeople;
++-------+---------+----------+--------+--------+
+| EmpID | EmpName | Salary   | DeptID | City   |
++-------+---------+----------+--------+--------+
+|   109 | Vikas   | 62000.00 |     30 | Mumbai |
++-------+---------+----------+--------+--------+
+1 row in set (0.01 sec)
+
+
+mysql> select max(salary) as maxsal
+    -> from emp;
++----------+
+| maxsal   |
++----------+
+| 63800.00 |
++----------+
+1 row in set (0.01 sec)
+
+
+mysql> select max(salary) as secondmax
+    -> from emp
+    -> where salary < (select max(salary) as maxsalary
+    -> from emp
+    -> );
++-----------+
+| secondmax |
++-----------+
+|  62000.00 |
++-----------+
+1 row in set (0.01 sec)
+
+mysql> select * from emp;
++-------+---------+----------+--------+-------------+-------+--------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City   |
++-------+---------+----------+--------+-------------+-------+--------+
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   |
++-------+---------+----------+--------+-------------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select *from emp
+    -> order by joiningdate;
++-------+---------+----------+--------+-------------+-------+--------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City   |
++-------+---------+----------+--------+-------------+-------+--------+
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   |
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   |
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   |
++-------+---------+----------+--------+-------------+-------+--------+
+5 rows in set (0.01 sec)
+
+mysql> select *from emp
+    -> order by joiningdate desc;
++-------+---------+----------+--------+-------------+-------+--------+
+| EmpID | EmpName | Salary   | DeptID | JoiningDate | email | City   |
++-------+---------+----------+--------+-------------+-------+--------+
+|   111 | Suresh  | 42000.00 |     40 | 2025-01-05  | NULL  | NULL   |
+|   110 | Anita   | 63800.00 |     10 | 2024-07-20  | NULL  | NULL   |
+|   107 | Kiran   | 57200.00 |     10 | 2024-06-01  | NULL  | NULL   |
+|   108 | Pooja   | 48000.00 |     20 | 2023-09-15  | NULL  | NULL   |
+|   109 | Vikas   | 62000.00 |     30 | 2022-12-10  | NULL  | Mumbai |
++-------+---------+----------+--------+-------------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql>
+
+mysql> alter table department
+    -> change column deptname departmentname varchar(50);
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select  *from department;
++--------+----------------+
+| DeptID | departmentname |
++--------+----------------+
+|     10 | IT             |
+|     20 | HR             |
+|     30 | Sales          |
+|     40 | Finance        |
+|     50 | Non_It         |
++--------+----------------+
+5 rows in set (0.00 sec)
